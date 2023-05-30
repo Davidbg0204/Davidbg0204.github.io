@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="encriptador.css">
+    
+    <title>encriptador</title>
+</head>
+<body>
+    <main>
+
+        <img src="diferenciales/Logo.png" alt="lo alura" class="logo">
+
+        <textarea  id="entrada" cols="30" rows="10" spellcheck="false" placeholder="Ingrese texto aqui"></textarea>
+
+        
+        <div class="botones">
+                <p><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="exclamacion">
+                    <g clip-path="url(#clip0_49_646)">
+                    <path d="M16 8C16 10.1217 15.1571 12.1566 13.6569 13.6569C12.1566 15.1571 10.1217 16 8 16C5.87827 16 3.84344 15.1571 2.34315 13.6569C0.842855 12.1566 0 10.1217 0 8C0 5.87827 0.842855 3.84344 2.34315 2.34315C3.84344 0.842855 5.87827 0 8 0C10.1217 0 12.1566 0.842855 13.6569 2.34315C15.1571 3.84344 16 5.87827 16 8V8ZM8 4C7.87361 4.00007 7.74863 4.02662 7.63312 4.07793C7.51761 4.12924 7.41413 4.20418 7.32934 4.29791C7.24456 4.39165 7.18035 4.5021 7.14084 4.62217C7.10134 4.74223 7.08743 4.86923 7.1 4.995L7.45 8.502C7.46176 8.63977 7.5248 8.76811 7.62664 8.86164C7.72849 8.95516 7.86173 9.00705 8 9.00705C8.13827 9.00705 8.27151 8.95516 8.37336 8.86164C8.4752 8.76811 8.53824 8.63977 8.55 8.502L8.9 4.995C8.91257 4.86923 8.89866 4.74223 8.85915 4.62217C8.81965 4.5021 8.75544 4.39165 8.67066 4.29791C8.58587 4.20418 8.48239 4.12924 8.36688 4.07793C8.25137 4.02662 8.12639 4.00007 8 4V4ZM8.002 10C7.73678 10 7.48243 10.1054 7.29489 10.2929C7.10736 10.4804 7.002 10.7348 7.002 11C7.002 11.2652 7.10736 11.5196 7.29489 11.7071C7.48243 11.8946 7.73678 12 8.002 12C8.26722 12 8.52157 11.8946 8.70911 11.7071C8.89664 11.5196 9.002 11.2652 9.002 11C9.002 10.7348 8.89664 10.4804 8.70911 10.2929C8.52157 10.1054 8.26722 10 8.002 10Z" fill="#495057"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_49_646">
+                    <rect width="16" height="16" fill="white"/>
+                    </clipPath>
+                    </defs>
+                    </svg>Solo letras minusculas y sin acentos</p>
+            <button id="encriptar">Encriptar</button><button id="desencriptar">Desencriptar</button>
+        </div><section class="resultado">
+            <div id="sinMensaje">
+                <img src="imagenes/Muñeco.png" alt="no se a encontrado informacion" class="noInfo">
+                <p class="mensaje">Ningún mensaje fue encontrado</p>
+                <p class="mensaje">Ingresa el texto que desees encriptar o desencriptar</p>
+            </div>
+            <div id="contenido">
+                <textarea id="mostrar" cols="30" rows="10" spellcheck="false" ></textarea>
+                <button id="Copiar"> Copiar </button>
+            </div>
+
+            
+        </section>
+    </main>
+</body>
+</html>
+
+<script>
+    var input=document.getElementById("mostrar");
+    var input=document.querySelector("input");
+    document.getElementById("entrada").focus();
+
+    var a=["a","i"];
+    var e=["e","n","t","e","r"];
+    var i=["i","m","e","s"];
+    var o=["o","b","e","r"];
+    var u=["u","f","a","t"];
+
+    var vocalesEncriptadas=[a,e,i,o,u];
+    var vocales=["a","e","i","o","u"];
+
+    
+
+
+    function saltarlinea(){
+        document.write("<br><br><hr><br><br>");
+    };
+    function imprimir(frase){
+        document.write(frase);
+        saltarlinea();
+    }
+
+    //verificar que no exista vocales encriptadas en el texto introducido por el usuario
+    function vocalesEn(arr1, arr2){
+        const posiciones = [];
+        for (let i = 0; i <= arr1.length - arr2.length; i++) {
+            if (JSON.stringify(arr1.slice(i, i + arr2.length)) === JSON.stringify(arr2)) {
+                arr1.splice(i+arr2.length,0,"/");
+                posiciones.push(i);
+                console.log(posiciones);
+            }
+        }
+    }
+
+    //eliminar separacion de vocales
+    function eliminarEspacio(arr1){
+        for (p=0;p< arr1.length;p++){
+            if (arr1[p]=="/"){
+                delete(arr1[p])
+            }
+        }
+    }
+
+    function encriptar(){
+        var texto= document.getElementById("entrada").value;
+        var encriptado= texto.split("");
+        console.log(encriptado)
+            sinMensaje(encriptado);
+        for(contador=0;contador< encriptado.length;contador++){
+
+
+            if (encriptado[contador]=="a"){
+                encriptado[contador]=a.join("");
+            }
+            if (encriptado[contador]=="e"){
+                encriptado[contador]=e.join("");
+            }
+            if (encriptado[contador]=="i"){
+                encriptado[contador]=i.join("");
+            }
+            if (encriptado[contador]=="o"){
+                encriptado[contador]=o.join("");
+            }
+            if (encriptado[contador]=="u"){
+                encriptado[contador]=u.join("");
+            }
+            
+        }  
+        console.log(encriptado);
+        texto =encriptado.join(""); 
+        document.getElementById("mostrar").value=texto;
+        return texto;
+    }
+
+    function desencriptar() {
+        var texto= document.getElementById("entrada").value;
+        const arregloPrincipal =texto.split("");
+        
+        for(x=0;x<vocalesEncriptadas.length;x++){
+            let p = 0;
+            vocalesEn(arregloPrincipal,vocalesEncriptadas[x]);
+            while (p < arregloPrincipal.length) {
+                let j = 0;
+                let coincide = true;
+
+                while (j < vocalesEncriptadas[x].length) {
+                    if (arregloPrincipal[p + j] !== vocalesEncriptadas[x][j]) {
+                    coincide = false;
+                    break;
+                    }
+                j++;
+                }
+                if (coincide) {
+                    arregloPrincipal.splice(p, vocalesEncriptadas[x].length);
+                    arregloPrincipal.splice(p,0,vocales[x])
+                    console.log(arregloPrincipal);
+                } else {
+                    p++;
+                }
+            }
+            
+
+        }
+        eliminarEspacio(arregloPrincipal)
+        desencriptado =arregloPrincipal.join("");
+        document.getElementById("mostrar").value=desencriptado;
+        return arregloPrincipal;
+        
+    }
+    
+
+    function sinMensaje(mensaje) {
+            var image=document.getElementById("sinMensaje")
+            var text = document.getElementById("contenido");
+
+            if (mensaje.length==0) {
+                image.style.display="block"
+                text.style.display = "none";
+            } else {
+                image.style.display="none"
+                text.style.display = "block";
+            }
+    }
+
+    function copiarTexto() {
+        // Obtener el elemento textarea
+        var textarea = document.getElementById("mostrar");
+        
+        // Seleccionar el texto dentro del textarea
+        textarea.select();
+        textarea.setSelectionRange(0, 99999); // Para dispositivos móviles
+        
+        // Copiar el texto seleccionado al portapapeles
+        document.execCommand("copy");
+        
+        // Deseleccionar el texto
+        textarea.blur();
+
+        document.getElementById("entrada").focus();
+
+    }
+
+
+    var button= document.getElementById("encriptar");
+    button.onclick=encriptar;
+    var button2=document.getElementById("desencriptar");
+    button2.onclick=desencriptar;
+    var button3=document.getElementById("Copiar");
+    button3.onclick=copiarTexto;
+
+</script>
